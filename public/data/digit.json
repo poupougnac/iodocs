@@ -1,0 +1,281 @@
+{
+  "name":"Digitevent REST API",
+  "protocol": "rest",
+  "basePath": "http://api.digitevent.net",
+  "publicPath": "/v1",
+  "auth": {
+    "key": {
+      "param": "api_key"
+    }
+  },
+  "schemas": {
+    "event": {
+      "id": "event",
+      "type": "object",
+      "properties": {
+        "label": {
+          "title":"label",
+          "required":true,
+          "default":"",
+          "type":"string",
+          "description":"The displayed name of the event"
+        },
+        "eventDate": {
+          "name":"eventDate",
+          "required":true,
+          "default":"",
+          "type":"string",
+          "description":"The starting date of the event"
+        },
+        "eventEndDate":{
+          "name": "eventEndDate",
+          "required": false,
+          "default": "",
+          "type": "string",
+          "description": "The ending date of the event"
+        },
+        "placeName": {
+          "name":"placeName",
+          "required":false,
+          "default":"",
+          "type":"string",
+          "description":"The name of the location where the event occurs"
+        },
+        "address": {
+          "name":"address",
+          "required":false,
+          "default":"",
+          "type":"string",
+          "description":"The address of the location"
+        },
+        "status": {
+          "name":"Status",
+          "required":false,
+          "default":"active",
+          "type":"string",
+          "description":"You can set this value to 'demo' if you are in debug mode",
+          "enum":["demo","active"]
+        }
+      }
+    },
+    "guest":{
+      "id":"guest",
+      "type":"object",
+      "properties":{
+        "firstname":{
+          "title":"firstname",
+          "description":"The firstname of the guest",
+          "required":true,
+          "default":"",
+          "type":"string"
+        },
+        "name":{
+          "title":"name",
+          "description":"The lastname of the guest",
+          "required":true,
+          "default":"",
+          "type":"string"
+        },
+        "guestemail":{
+          "title":"guestemail",
+          "description":"The email of the guest. Must be unique in the guests list of the same event",
+          "required":false,
+          "default":"",
+          "type":"string"
+        },
+        "mobilephone":{
+          "title":"mobilephone",
+          "description":"The mobile phone in the format : (+ind)(number) ex: +33612345678",
+          "required":false,
+          "default":"",
+          "type":"string"
+        }
+      }
+    }
+  },
+  "resources" : {
+    "Events": {
+      "methods": {
+        "readOneEvent":{
+          "name":"Get an event",
+          "description":"Get one event specified by its Id",
+          "httpMethod":"GET",
+          "path":"/event/{eventId}",
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            }
+          }
+        },
+        "readAllEvents": {
+          "name":"Get all events",
+          "path":"/event",
+          "httpMethod":"GET",
+          "description":"Get all events managed by the account",
+          "parameters": {}
+        },
+        "createAnEvent":{
+          "name":"Create a new event",
+          "description":"Create a new event",
+          "httpMethod":"POST",
+          "path":"/event/create",
+          "request": {
+            "$ref":"event"
+          },
+          "parameters":{}
+        },
+        "updateAnEvent":{
+          "name":"Update an event",
+          "description":"Update an event",
+          "httpMethod":"POST",
+          "path":"/event/{eventId}",
+          "request": {
+            "$ref":"event"
+          },
+          "parameters":{
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            }
+          }
+        },
+        "deleteAnEvent":{
+          "name":"Delete an event",
+          "description":"Delete an event",
+          "httpMethod":"DELETE",
+          "path":"/event/{eventId}",
+          "parameters":{
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            }
+          }
+        }
+      }
+    },
+    "Guests":{
+      "methods":{
+        "readAllGuests":{
+          "name":"Get all guests",
+          "description":"Get all guests for a specific event",
+          "httpMethod":"GET",
+          "path":"/event/{eventId}/guest",
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            }
+          }
+        },
+        "readOneGuest":{
+          "name":"Get a guest",
+          "description":"Get a guest for a specific event",
+          "httpMethod":"GET",
+          "path":"/event/{eventId}/guest/{guestId}",
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            },
+            "guestId":{
+              "title":"guestId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the guest (32 chars length)"
+            }
+          }
+        },
+        "createOneGuest":{
+          "name":"Create a guest",
+          "description":"Create a guest for a specific event",
+          "httpMethod":"POST",
+          "path":"/event/{eventId}/guest/create",
+          "request":{
+            "$ref":"guest"
+          },
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            },
+            "guestId":{
+              "title":"guestId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the guest (32 chars length)"
+            }
+          }
+        },
+        "updateOneGuest":{
+          "name":"Update a guest",
+          "description":"Update a guest for a specific event",
+          "httpMethod":"POST",
+          "path":"/event/{eventId}/guest/{guestId}",
+          "request":{
+            "$ref":"guest"
+          },
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            },
+            "guestId":{
+              "title":"guestId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the guest (32 chars length)"
+            }
+          }
+        },
+        "deleteOneGuest":{
+          "name":"Delete a guest",
+          "description":"Delete a specific guest for a specific event",
+          "httpMethod":"DELETE",
+          "path":"/event/{eventId}/guest/{guestId}",
+          "parameters": {
+            "eventId":{
+              "title":"eventId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the event (32 chars length)"
+            },
+            "guestId":{
+              "title":"guestId",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "description":"the ID of the guest (32 chars length)"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
