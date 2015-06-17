@@ -114,7 +114,7 @@
         },
         "readAllEvents": {
           "name":"Get all events",
-          "path":"/event",
+          "path":"/events",
           "httpMethod":"GET",
           "description":"Get all events managed by the account",
           "parameters": {}
