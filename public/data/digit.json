@@ -1,6 +1,7 @@
 {
   "name":"Digitevent REST API",
   "protocol": "rest",
+  "description":"Veuillez nous contacter pour toute question relative à l'API sur support@digitevent.net",
   "basePath": "http://api.digitevent.net",
   "publicPath": "/v1",
   "auth": {
