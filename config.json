@@ -1,6 +1,6 @@
 {
     "title" : "Digitevent Developer - http://github.com/mashery/iodocs",
-    "address": "developers.digitevent.net",
+    "address": "0.0.0.0",
     "port" : 3000,
     "apiConfigDir" : "./public/data/",
     "debug" : false,
