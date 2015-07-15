@@ -35,13 +35,6 @@
           "type": "string",
           "description": "The ending date of the event"
         },
-        "placeName": {
-          "name":"placeName",
-          "required":false,
-          "default":"",
-          "type":"string",
-          "description":"The name of the location where the event occurs"
-        },
         "address": {
           "name":"address",
           "required":false,
