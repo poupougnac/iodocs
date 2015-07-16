@@ -14,26 +14,12 @@
       "id": "event",
       "type": "object",
       "properties": {
-        "label": {
-          "title":"label",
-          "required":true,
-          "default":"",
-          "type":"string",
-          "description":"The displayed name of the event"
-        },
-        "eventDate": {
-          "name":"eventDate",
-          "required":true,
-          "default":"",
-          "type":"string",
-          "description":"The starting date of the event"
-        },
         "eventEndDate":{
           "name": "eventEndDate",
           "required": false,
           "default": "",
           "type": "string",
-          "description": "The ending date of the event"
+          "description": "The ending date of the event (YYYY-MM-DDThh:mm:ssZ), ex:2016-05-30T09:30:10Z"
         },
         "address": {
           "name":"address",
@@ -41,14 +27,6 @@
           "default":"",
           "type":"string",
           "description":"The address of the location"
-        },
-        "status": {
-          "name":"Status",
-          "required":false,
-          "default":"active",
-          "type":"string",
-          "description":"You can set this value to 'demo' if you are in debug mode",
-          "enum":["demo","active"]
         }
       }
     },
@@ -56,20 +34,6 @@
       "id":"guest",
       "type":"object",
       "properties":{
-        "firstname":{
-          "title":"firstname",
-          "description":"The firstname of the guest",
-          "required":true,
-          "default":"",
-          "type":"string"
-        },
-        "name":{
-          "title":"name",
-          "description":"The lastname of the guest",
-          "required":true,
-          "default":"",
-          "type":"string"
-        },
         "guestemail":{
           "title":"guestemail",
           "description":"The email of the guest. Must be unique in the guests list of the same event",
@@ -120,7 +84,41 @@
           "request": {
             "$ref":"event"
           },
-          "parameters":{}
+          "parameters":{
+            "status": {
+              "name":"Status",
+              "required":false,
+              "default":"active",
+              "type":"string",
+              "description":"You can set this value to 'demo' if you are in debug mode",
+              "enum":["demo","active"],
+              "location":"body"
+            },
+            "label": {
+              "title":"label",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "location":"body",
+              "description":"The displayed name of the event"
+            },
+            "modules": {
+              "name":"modules",
+              "required":false,
+              "default":"checkin",
+              "type":"string",
+              "location":"body",
+              "description":"Modules to use separate by spaces (available choice between: checkin,registration,whiteLabel,print,scan,signature)"
+            },
+            "eventDate": {
+              "name":"eventDate",
+              "required":true,
+              "default":"",
+              "type":"string",
+              "location":"body",
+              "description":"The starting date of the event (YYYY-MM-DDThh:mm:ssZ), ex:2016-05-30T09:30:10Z"
+            }
+          }
         },
         "updateAnEvent":{
           "name":"Update an event",
@@ -136,7 +134,24 @@
               "required":true,
               "default":"",
               "type":"string",
+              "location":"body",
               "description":"the ID of the event (32 chars length)"
+            },
+            "label": {
+              "title":"label",
+              "required":false,
+              "default":"",
+              "type":"string",
+              "location":"body",
+              "description":"The displayed name of the event"
+            },
+            "eventDate": {
+              "name":"eventDate",
+              "required":false,
+              "default":"",
+              "type":"string",
+              "location":"body",
+              "description":"The starting date of the event (YYYY-MM-DDThh:mm:ssZ), ex:2016-05-30T09:30:10Z"
             }
           }
         },
@@ -163,7 +178,7 @@
           "name":"Get all guests",
           "description":"Get all guests for a specific event",
           "httpMethod":"GET",
-          "path":"/event/{eventId}/guest",
+          "path":"/event/{eventId}/guests",
           "parameters": {
             "eventId":{
               "title":"eventId",
@@ -198,7 +213,7 @@
         },
         "createOneGuest":{
           "name":"Create a guest",
-          "description":"Create a guest for a specific event",
+          "description":"Create a guest or a collection of guest (if body contains an array) for a specific event",
           "httpMethod":"POST",
           "path":"/event/{eventId}/guest/create",
           "request":{
@@ -212,12 +227,19 @@
               "type":"string",
               "description":"the ID of the event (32 chars length)"
             },
-            "guestId":{
-              "title":"guestId",
+            "firstname":{
+              "title":"firstname",
+              "description":"The firstname of the guest",
+              "required":false,
+              "default":"",
+              "type":"string"
+            },
+            "name":{
+              "title":"name",
+              "description":"The lastname of the guest",
               "required":true,
               "default":"",
-              "type":"string",
-              "description":"the ID of the guest (32 chars length)"
+              "type":"string"
             }
           }
         },

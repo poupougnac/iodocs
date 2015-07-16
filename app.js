@@ -1145,9 +1145,12 @@ function dynamicHelpers(req, res, next) {
 // Routes
 //
 app.get('/', function(req, res) {
+    //redirection digit
+    res.redirect('/api');
+    /*
     res.render('listAPIs', {
         title: config.title
-    });
+    });*/
 });
 
 // Process the API request
