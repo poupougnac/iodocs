@@ -34,6 +34,20 @@
       "id":"guest",
       "type":"object",
       "properties":{
+        "firstname":{
+          "title":"firstname",
+          "description":"The firstname of the guest",
+          "required":false,
+          "default":"",
+          "type":"string"
+        },
+        "name":{
+          "title":"name",
+          "description":"The lastname of the guest",
+          "required":true,
+          "default":"",
+          "type":"string"
+        },
         "guestemail":{
           "title":"guestemail",
           "description":"The email of the guest. Must be unique in the guests list of the same event",
@@ -226,20 +240,6 @@
               "default":"",
               "type":"string",
               "description":"the ID of the event (32 chars length)"
-            },
-            "firstname":{
-              "title":"firstname",
-              "description":"The firstname of the guest",
-              "required":false,
-              "default":"",
-              "type":"string"
-            },
-            "name":{
-              "title":"name",
-              "description":"The lastname of the guest",
-              "required":true,
-              "default":"",
-              "type":"string"
             }
           }
         },
