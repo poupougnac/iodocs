@@ -14,13 +14,6 @@
       "id": "event",
       "type": "object",
       "properties": {
-        "eventEndDate":{
-          "name": "eventEndDate",
-          "required": false,
-          "default": "",
-          "type": "string",
-          "description": "The ending date of the event (YYYY-MM-DDThh:mm:ssZ), ex:2016-05-30T09:30:10Z"
-        },
         "address": {
           "name":"address",
           "required":false,
