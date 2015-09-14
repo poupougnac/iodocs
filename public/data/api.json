@@ -239,7 +239,7 @@
         "updateOneGuest":{
           "name":"Update a guest",
           "description":"Update a guest for a specific event",
-          "httpMethod":"POST",
+          "httpMethod":"PUT",
           "path":"/event/{eventId}/guest/{guestId}",
           "request":{
             "$ref":"guest"
